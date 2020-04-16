@@ -97,7 +97,7 @@ let get_name (i : id) : string =
 let update_balance (n : id) (i : int) : unit =
   match List.filter (fun elt -> elt.id = n) !database with
   | [] -> raise (Invalid_argument "no account with this ID")
-  | {name; id; balance} :: _ -> database := {name; id; balance = i} ::
+  | {name; id; _} :: _ -> database := {name; id; balance = i} ::
                                             (List.filter (fun elt -> elt.id <> id)
                                                          !database) ;;
 

@@ -23,7 +23,7 @@ balance.
 
 let database = ref [] ;;
 
-let initialize (acc : account_spec list) : unit = 
+let initialize (acc : account_spec list) : unit =
   database := acc ;;
 
 (*....................................................................
@@ -58,7 +58,12 @@ val get_balance : id -> int ;;
 
 (* get_name id -- Returns the name associated with the customer
    account with the given id. *)
-val get_name : id -> string ;;
+let get_name (i : id) : string =
+  let rec help (i : id) (db : account_spec list) : string =
+    match db with
+    | [] -> raise (Invalid_argument "no account with this ID")
+    | hd :: tl -> if hd.id = id then hd.name else help i tl in
+    help i !database ;;
 
 (* update_balance id amount -- Modifies the balance of the customer
    account with the given id,setting it to the given amount. *)

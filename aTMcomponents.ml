@@ -114,4 +114,4 @@ let present_message (s : string) : unit =
    customer (really just prints to stdout a message to that
    effect). *)
 let deliver_cash (amt : int) : unit =
-  Printf.printf "%i dollars dispensed" amt ;;
+  Printf.printf "%i dollars dispensed\n" amt ;;

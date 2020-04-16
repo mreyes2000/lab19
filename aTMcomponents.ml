@@ -33,13 +33,10 @@ let initialize (acc : account_spec list) : unit =
 (* acquire_id () -- Requests from the ATM customer and returns an id
    (akin to entering one's ATM card), by prompting for an id number
    and reading an id from stdin. *)
-<<<<<<< HEAD
+
 let acquire_id () = 
   Printf.printf("Please enter an ID: \n");
   read_int ();;
-=======
-let acquire_id () = read_int ;;
->>>>>>> ec0c9e81679363dc2a5db1f5776586308b00d250
 
 (* acquire_amount () -- Requests from the ATM customer and returns an
    amount by prompting for an amount and reading an int from stdin. *)
@@ -74,7 +71,11 @@ let get_name (i : id) : string =
 (* update_balance id amount -- Modifies the balance of the customer
    account with the given id, setting it to the given amount. *)
 let update_balance (n : id) (i : int) : unit = 
-  get_balance n;;
+  match List.filter (fun elt -> elt.id = n) !database with
+  | [] -> raise (Invalid_argument "no account with this ID")
+  | {name; id; balance} :: _ -> database := {name; id; balance = i} :: 
+                                            (List.filter (fun elt -> elt.id <> id) 
+                                                         !database) ;;
 
 (*....................................................................
   Presenting information and cash to the customer

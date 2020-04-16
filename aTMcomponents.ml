@@ -45,7 +45,15 @@ let acquire_amount : int =
 
 (* acquire_act () -- Requests from the user and returns an action to
    be performed, as a value of type action *)
-val acquire_act : unit -> action ;;
+let acquire_act () : action =
+  Printf.printf "Enter action: (B) Balance (-) Withdraw (+) Deposit (=) Done (X) Exit:";
+  match read_line () with 
+  | "B" -> Balance 
+  | "-" -> Printf.printf "Enter amount:"; Withdraw (read_int ())
+  | "+" -> Printf.printf "Enter amount:"; Deposit (read_int ())
+  | "=" -> Next
+  | "X" -> Finished 
+  | _ -> raise (Invalid_argument "Invalid Action") ;;
 
 (*....................................................................
   Querying and updating the account database

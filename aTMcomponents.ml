@@ -76,12 +76,12 @@ let acquire_act () : action =
 
 (* get_balance id -- Returns the balance for the customer account with
    the given id. *)
-let get_balance (id : id) : int =
-  let rec check (acc : account_spec list) (id : id) : int =
+let get_balance (i : id) : int =
+  let rec check (acc : account_spec list) (i : id) : int =
     match acc with
     | [] -> raise Not_found
-    | hd :: tl -> if hd.id = id then hd.balance else check tl id in
-    check id !database ;;
+    | hd :: tl -> if hd.id = i then hd.balance else check tl i in
+    check !database i ;;
 
 (* get_name id -- Returns the name associated with the customer
    account with the given id. *)
@@ -89,7 +89,7 @@ let get_name (i : id) : string =
   let rec help (i : id) (db : account_spec list) : string =
     match db with
     | [] -> raise (Invalid_argument "no account with this ID")
-    | hd :: tl -> if hd.id = id then hd.name else help i tl in
+    | hd :: tl -> if hd.id = i then hd.name else help i tl in
     help i !database ;;
 
 (* update_balance id amount -- Modifies the balance of the customer

@@ -83,4 +83,5 @@ val present_message : string -> unit ;;
 (* deliver_cash amount -- Dispenses the given amount of cash to the
    customer (really just prints to stdout a message to that
    effect). *)
-val deliver_cash : int -> unit ;;
+let deliver_cash (amt : int) : unit =
+  Printf.printf "%i dollars dispensed" amt ;;

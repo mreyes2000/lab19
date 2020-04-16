@@ -1,3 +1,4 @@
+
 (*
                 Component Behaviors of an ATM Machine
 
@@ -12,30 +13,18 @@ of accounts, each with an id number, a customer name, and a current
 balance.
  *)
 
-(* Customer account identifiers *)
-type id = int
-
-(* Possible actions that an ATM customer can perform *)
-type action =
-  | Balance           (* balance inquiry *)
-  | Withdraw of int   (* withdraw an amount *)
-  | Deposit of int    (* deposit an amount *)
-  | Next              (* finish this customer and move on to the next one *)
-  | Finished          (* shut down the ATM and exit entirely *)
-;; 
-
 (*....................................................................
  Initializing database of accounts
 *)
 
-(* A specification of a customer name and initial balance for
-   initializing the account database *)
-type account_spec = {name : string; id : id; balance : int} ;;
-
 (* initialize accts -- Establishes a database of accounts, each with a
    name, aribtrary id, and balance. The names and balances are
    initialized as per the `accts` provided. *)
-val initialize : account_spec list -> unit ;;
+
+let database = ref [] ;;
+
+let initialize (acc : account_spec list) : unit = 
+  database := acc ;;
 
 (*....................................................................
  Acquiring information from the customer
@@ -48,7 +37,9 @@ val acquire_id () = read_int ;;
 
 (* acquire_amount () -- Requests from the ATM customer and returns an
    amount by prompting for an amount and reading an int from stdin. *)
-val acquire_amount : unit -> int ;;
+let acquire_amount : int =
+  Printf.printf("Please enter an amount: \n");
+  read_int () ;;
 
 (* acquire_act () -- Requests from the user and returns an action to
    be performed, as a value of type action *)
@@ -58,9 +49,9 @@ val acquire_act : unit -> action ;;
   Querying and updating the account database
 
   These functions all raise Not_found if there is no account with the
-  given id. 
+  given id.
  *)
-  
+
 (* get_balance id -- Returns the balance for the customer account with
    the given id. *)
 val get_balance : id -> int ;;
@@ -76,7 +67,7 @@ val update_balance : id -> int -> unit ;;
 (*....................................................................
   Presenting information and cash to the customer
  *)
-  
+
 (* present_message message -- Presents to the customer (on stdout) the
    given message followed by a newline. *)
 val present_message : string -> unit ;;

@@ -51,7 +51,7 @@ let acquire_id () =
 
 (* acquire_amount () -- Requests from the ATM customer and returns an
    amount by prompting for an amount and reading an int from stdin. *)
-let acquire_amount : int =
+let acquire_amount () : int =
   Printf.printf("Please enter an amount: \n");
   read_int () ;;
 

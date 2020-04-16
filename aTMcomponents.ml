@@ -64,7 +64,12 @@ let acquire_act () : action =
 
 (* get_balance id -- Returns the balance for the customer account with
    the given id. *)
-val get_balance : id -> int ;;
+let get_balance (id : id) : int =
+  let rec check (acc : account_spec list) (id : id) : int =
+    match acc with
+    | [] -> raise Not_found
+    | hd :: tl -> if hd.id = id then hd.balance else check tl id in
+    check id !database ;;
 
 (* get_name id -- Returns the name associated with the customer
    account with the given id. *)

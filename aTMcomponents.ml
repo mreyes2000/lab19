@@ -70,7 +70,7 @@ let get_name (i : id) : string =
 (* update_balance id amount -- Modifies the balance of the customer
    account with the given id, setting it to the given amount. *)
 let update_balance (n : id) (i : int) : unit = 
-  get_balance n ;;
+  get_balance n;;
 
 (*....................................................................
   Presenting information and cash to the customer

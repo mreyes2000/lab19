@@ -88,7 +88,7 @@ let get_balance (i : id) : int =
 let get_name (i : id) : string =
   let rec help (i : id) (db : account_spec list) : string =
     match db with
-    | [] -> raise (Invalid_argument "no account with this ID")
+    | [] -> raise Not_found
     | hd :: tl -> if hd.id = i then hd.name else help i tl in
     help i !database ;;
 
@@ -96,7 +96,7 @@ let get_name (i : id) : string =
    account with the given id, setting it to the given amount. *)
 let update_balance (n : id) (i : int) : unit =
   match List.filter (fun elt -> elt.id = n) !database with
-  | [] -> raise (Invalid_argument "no account with this ID")
+  | [] -> raise Not_found
   | {name; id; _} :: _ -> database := {name; id; balance = i} ::
                                             (List.filter (fun elt -> elt.id <> id)
                                                          !database) ;;

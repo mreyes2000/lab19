@@ -33,12 +33,8 @@ let initialize (acc : account_spec list) : unit =
 (* acquire_id () -- Requests from the ATM customer and returns an id
    (akin to entering one's ATM card), by prompting for an id number
    and reading an id from stdin. *)
-<<<<<<< HEAD
 
-let acquire_id () = 
-=======
 let acquire_id () =
->>>>>>> a751bf42a90d315a751cb306be0950847a65f588
   Printf.printf("Please enter an ID: \n");
   read_int ();;
 
@@ -52,12 +48,12 @@ let acquire_amount : int =
    be performed, as a value of type action *)
 let acquire_act () : action =
   Printf.printf "Enter action: (B) Balance (-) Withdraw (+) Deposit (=) Done (X) Exit:";
-  match read_line () with 
-  | "B" -> Balance 
+  match read_line () with
+  | "B" -> Balance
   | "-" -> Printf.printf "Enter amount:"; Withdraw (read_int ())
   | "+" -> Printf.printf "Enter amount:"; Deposit (read_int ())
   | "=" -> Next
-  | "X" -> Finished 
+  | "X" -> Finished
   | _ -> raise (Invalid_argument "Invalid Action") ;;
 
 (*....................................................................
@@ -87,17 +83,12 @@ let get_name (i : id) : string =
 
 (* update_balance id amount -- Modifies the balance of the customer
    account with the given id, setting it to the given amount. *)
-<<<<<<< HEAD
-let update_balance (n : id) (i : int) : unit = 
+let update_balance (n : id) (i : int) : unit =
   match List.filter (fun elt -> elt.id = n) !database with
   | [] -> raise (Invalid_argument "no account with this ID")
-  | {name; id; balance} :: _ -> database := {name; id; balance = i} :: 
-                                            (List.filter (fun elt -> elt.id <> id) 
+  | {name; id; balance} :: _ -> database := {name; id; balance = i} ::
+                                            (List.filter (fun elt -> elt.id <> id)
                                                          !database) ;;
-=======
-let update_balance (n : id) (i : int) : unit =
-  get_balance n;;
->>>>>>> a751bf42a90d315a751cb306be0950847a65f588
 
 (*....................................................................
   Presenting information and cash to the customer

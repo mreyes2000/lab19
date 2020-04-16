@@ -86,7 +86,8 @@ let update_balance (n : id) (i : int) : unit =
 
 (* present_message message -- Presents to the customer (on stdout) the
    given message followed by a newline. *)
-val present_message : string -> unit ;;
+let present_message (s : string) : unit =
+  Printf.printf "%s\n" s ;;
 
 (* deliver_cash amount -- Dispenses the given amount of cash to the
    customer (really just prints to stdout a message to that
